@@ -100,75 +100,39 @@ var infoObj = {
 
 // Function to prompt user for password options
 function getPasswordOptions() {
-  var userInput = 0;
-//  function passwordLength() {
-    userInput = prompt("Please enter a password length between 10 and 64");
-    
+  var userInput = prompt("Please enter a password length between 10 and 64");    
     if (userInput >= 10 && userInput <= 64) {
       infoObj.passwordLength = userInput;
     } else {
       return;
     };
     
-//    return (infoObj.passwordLength = userInput);
-//  }
-
- // function specialChar() {
   var specialCharPrompt = confirm("Would you like special characters in the password? please enter yes or no");
     if (specialCharPrompt === true) {
       infoObj.specialChar = true;
     };
- // }
 
-  // function numericChar() {
-  //   var numericCharPrompt = confirm('Would you like numeric characters in the password? please enter yes or no');
-  //   if (numericCharPrompt === true) {
-  //     infoObj.numericChar = true;
-  //   } else {
-  //     infoObj.numericChar = false;
-  //   };
+  var numericCharPrompt = confirm('Would you like numeric characters in the password? please enter yes or no');
+    if (numericCharPrompt === true) {
+      infoObj.numericChar = true;
+    }; 
 
-  //   return infoObj.numericChar;
-  // };
+  var lowerCaseCharPrompt = confirm('Would you like lowercase characters in the password? please enter yes or no');
+    if (lowerCaseCharPrompt === true) {
+      infoObj.lowerCaseChar = true;
+    }; 
 
-  // function lowerCaseChar() {
-  //   var lowerCaseCharPrompt = confirm('Would you like lowercase characters in the password? please enter yes or no');
-  //   if (lowerCaseCharPrompt === true) {
-  //     infoObj.lowerCaseChar = true;
-  //   } else {
-  //     infoObj.lowerCaseChar = false;
-  //   };
-  //   return infoObj.lowerCaseChar;
-  // };
+  var upperCaseCharPrompt = confirm('Would you like uppercase characters in the password? please enter yes or no');
+    if (upperCaseCharPrompt === true) {
+      infoObj.upperCaseChar = true;
+    };
 
-  // function upperCaseChar() {
-  //   var upperCaseCharPrompt = confirm('Would you like uppercase characters in the password? please enter yes or no');
-  //   if (upperCaseCharPrompt === true) {
-  //     infoObj.upperCaseChar = true;
-  //   } else {
-  //     infoObj.upperCaseChar = false;
-  //   };
-  //   return infoObj.upperCaseChar;
-  // };
-
-  // passwordLength();
-  // specialChar();
-  // numericChar();
-  // lowerCaseChar();
-  // upperCaseChar();
   return infoObj;
-}
+};
 
 // Function to randomly choose array
-
 function getRandomArr() {
   var randomArr = Math.floor(Math.random() * 4);
-
-  // if (infoObj.specialChar === false) {
-  //   randomArr = Math.round(Math.random() * 3 + 1);
-  // }
-
-  // console.log(randomArr);
 
   switch (randomArr) {
     case 0:
@@ -177,18 +141,23 @@ function getRandomArr() {
       };  
       break;
     case 1:
-      infoObj.arr = numericCharacters;
+      if (infoObj.numericChar === true) {
+        infoObj.arr = numericCharacters;
+      };
       break;
     case 2:
-      infoObj.arr = lowerCasedCharacters;
+      if (infoObj.lowerCaseChar === true) {
+        infoObj.arr = lowerCasedCharacters;
+      };
       break;
     case 3:
-      infoObj.arr = upperCasedCharacters;
+      if (infoObj.upperCaseChar === true) {
+        infoObj.arr = upperCasedCharacters;
+      };
       break;
     case null:
       break;
-  }
-
+  };
 
   return infoObj.arr;
 }
@@ -209,7 +178,9 @@ function generatePassword() {
   for (i = 0; i < passwordLength; i++) {
     var char = getRandom();
     password.push(char);
-  }
+  };
+
+
   return password.join("");
 }
 
@@ -221,11 +192,13 @@ function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
 
+  console.log(password.length);
+ 
   passwordText.value = "";
   passwordText.value = password;
 
   // console.log(infoObj)
-}
+};
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
