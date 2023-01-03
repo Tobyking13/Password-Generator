@@ -96,74 +96,66 @@ var infoObj = {
   lowerCaseChar: false,
   upperCaseChar: false
 };
-// Function to randomly choose array
-
-function getRandomArr(arr) {
-  var randomArr = Math.round(Math.random() * 3);
-  
-  switch (randomArr) {
-    case 0:
-      arr = specialCharacters;
-      break;
-    case 1:
-      arr = numericCharacters;
-      break;
-    case 2:
-      arr = lowerCasedCharacters;
-      break;
-    case 3:
-      arr = upperCasedCharacters;
-      break;
-  }
-  return arr;
-}
 
 // Function to prompt user for password options
 function getPasswordOptions() {
-  var passwordLength = prompt('Please enter a password length between 10 and 64');
-  var specialCharPrompt = prompt('Would you like special characters in the password? please enter yes or no');
-  // var numericCharPrompt = prompt('Would you like numeric characters in the password? please enter yes or no');
-  // var lowerCaseCharPrompt = prompt('Would you like lowercase characters in the password? please enter yes or no');
-  // var upperCaseCharPrompt = prompt('Would you like uppercase characters in the password? please enter yes or no');
-
-  // if (upperCaseCharPrompt === 'yes') {
-  //   infoObj.upperCaseChar = true;
-  // } else if (upperCaseCharPrompt === 'no'){
-  //   infoObj.upperCaseChar = false;
-  // } else {
-  //   getPasswordOptions();
-  // };
-
-  // if (lowerCaseCharPrompt === 'yes') {
-  //   infoObj.lowerCaseChar = true;
-  // } else if (lowerCaseCharPrompt === 'no'){
-  //   infoObj.lowerCaseChar = false;
-  // } else {
-  //   getPasswordOptions();
-  // };
-
-  // if (numericCharPrompt === 'yes') {
-  //   infoObj.numericChar = true;
-  // } else if (numericCharPrompt === 'no'){
-  //   infoObj.numericChar = false;
-  // } else {
-  //   getPasswordOptions();
-  // };
-
-  if (specialCharPrompt === 'yes') {
-    infoObj.specialChar = true;
-  } else if (specialCharPrompt === 'no'){
-    infoObj.specialChar = false;
-  } else {
-    getPasswordOptions();
+  var userInput = 0
+  function passwordLength() {
+    userInput = prompt('Please enter a password length between 10 and 64');
+    if (userInput >= 10 && userInput <= 64) {
+      infoObj.passwordLength = userInput;
+    } else {
+      getPasswordOptions();
+    };
+    return infoObj.passwordLength = userInput;
   };
 
-  if (passwordLength >= 10 && passwordLength <= 64) {
-    return infoObj.passwordLength = passwordLength;
-  } else {
-    getPasswordOptions();
+  function specialChar() {
+    var specialCharPrompt = confirm('Would you like special characters in the password? please enter yes or no');
+    if (specialCharPrompt === true) {
+      infoObj.specialChar = true;
+    } else {
+      infoObj.specialChar = false;
+    }; 
+    return infoObj.specialChar;
   };
-  
+
+  function numericChar() {
+    var numericCharPrompt = confirm('Would you like numeric characters in the password? please enter yes or no');
+    if (numericCharPrompt === true) {
+      infoObj.numericChar = true;
+    } else {
+      infoObj.numericChar = false;
+    };
+
+    return infoObj.numericChar;
+  };
+
+  function lowerCaseChar() {
+    var lowerCaseCharPrompt = confirm('Would you like lowercase characters in the password? please enter yes or no');
+    if (lowerCaseCharPrompt === true) {
+      infoObj.lowerCaseChar = true;
+    } else {
+      infoObj.lowerCaseChar = false;
+    }; 
+    return infoObj.lowerCaseChar;
+  };
+
+  function upperCaseChar() {
+    var upperCaseCharPrompt = confirm('Would you like uppercase characters in the password? please enter yes or no');
+    if (upperCaseCharPrompt === true) {
+      infoObj.upperCaseChar = true;
+    } else {
+      infoObj.upperCaseChar = false;
+    }; 
+    return infoObj.upperCaseChar;
+  };
+
+  passwordLength();
+  specialChar();
+  numericChar();
+  lowerCaseChar();
+  upperCaseChar();
   return infoObj; 
 };
 
@@ -174,14 +166,35 @@ function getRandom() {
   return arr[randomIndex];
 };
 
+// Function to randomly choose array
+
+function getRandomArr(arr) {
+  var randomArr = Math.round(Math.random() * 3);
+  
+  if (randomArr === 0 && infoObj.specialChar === true) {
+    arr = specialCharacters;
+  } else if (randomArr === 1 && infoObj.numericChar === true) {
+    arr = numericCharacters;
+  } else if (randomArr === 2 && infoObj.lowerCaseChar === true) {
+    arr = lowerCasedCharacters;
+  } else if (randomArr === 3 && infoObj.upperCaseChar === true) {
+    arr = upperCasedCharacters;
+  } else {
+    randomArr = 0
+  };
+
+  return arr;
+}
+
 // Function to generate password with user input
 function generatePassword() {
   getPasswordOptions();
 
   var passwordLength = infoObj.passwordLength;
-  var specialChar = infoObj.specialChar;
+  console.log(getRandom());
+  // var specialChar = infoObj.specialChar;
 
-  console.log(infoObj.specialChar)
+//  console.log(infoObj.specialChar)
   
   
   for (i = 0; i < passwordLength; i++) {
@@ -202,6 +215,9 @@ function writePassword() {
 
   passwordText.value = "";
   passwordText.value = password;
+
+  // console.log(infoObj)
+
 }
 
 // Add event listener to generate button
