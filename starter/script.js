@@ -94,96 +94,110 @@ var infoObj = {
   specialChar: false,
   numericChar: false,
   lowerCaseChar: false,
-  upperCaseChar: false
+  upperCaseChar: false,
+  arr: [],
 };
 
 // Function to prompt user for password options
 function getPasswordOptions() {
-  var userInput = 0
-  function passwordLength() {
-    userInput = prompt('Please enter a password length between 10 and 64');
+  var userInput = 0;
+//  function passwordLength() {
+    userInput = prompt("Please enter a password length between 10 and 64");
+    
     if (userInput >= 10 && userInput <= 64) {
       infoObj.passwordLength = userInput;
     } else {
-      getPasswordOptions();
+      return;
     };
-    return infoObj.passwordLength = userInput;
-  };
+    
+//    return (infoObj.passwordLength = userInput);
+//  }
 
-  function specialChar() {
-    var specialCharPrompt = confirm('Would you like special characters in the password? please enter yes or no');
+ // function specialChar() {
+  var specialCharPrompt = confirm("Would you like special characters in the password? please enter yes or no");
     if (specialCharPrompt === true) {
       infoObj.specialChar = true;
-    } else {
-      infoObj.specialChar = false;
-    }; 
-    return infoObj.specialChar;
-  };
-
-  function numericChar() {
-    var numericCharPrompt = confirm('Would you like numeric characters in the password? please enter yes or no');
-    if (numericCharPrompt === true) {
-      infoObj.numericChar = true;
-    } else {
-      infoObj.numericChar = false;
     };
+ // }
 
-    return infoObj.numericChar;
-  };
+  // function numericChar() {
+  //   var numericCharPrompt = confirm('Would you like numeric characters in the password? please enter yes or no');
+  //   if (numericCharPrompt === true) {
+  //     infoObj.numericChar = true;
+  //   } else {
+  //     infoObj.numericChar = false;
+  //   };
 
-  function lowerCaseChar() {
-    var lowerCaseCharPrompt = confirm('Would you like lowercase characters in the password? please enter yes or no');
-    if (lowerCaseCharPrompt === true) {
-      infoObj.lowerCaseChar = true;
-    } else {
-      infoObj.lowerCaseChar = false;
-    }; 
-    return infoObj.lowerCaseChar;
-  };
+  //   return infoObj.numericChar;
+  // };
 
-  function upperCaseChar() {
-    var upperCaseCharPrompt = confirm('Would you like uppercase characters in the password? please enter yes or no');
-    if (upperCaseCharPrompt === true) {
-      infoObj.upperCaseChar = true;
-    } else {
-      infoObj.upperCaseChar = false;
-    }; 
-    return infoObj.upperCaseChar;
-  };
+  // function lowerCaseChar() {
+  //   var lowerCaseCharPrompt = confirm('Would you like lowercase characters in the password? please enter yes or no');
+  //   if (lowerCaseCharPrompt === true) {
+  //     infoObj.lowerCaseChar = true;
+  //   } else {
+  //     infoObj.lowerCaseChar = false;
+  //   };
+  //   return infoObj.lowerCaseChar;
+  // };
 
-  passwordLength();
-  specialChar();
-  numericChar();
-  lowerCaseChar();
-  upperCaseChar();
-  return infoObj; 
-};
+  // function upperCaseChar() {
+  //   var upperCaseCharPrompt = confirm('Would you like uppercase characters in the password? please enter yes or no');
+  //   if (upperCaseCharPrompt === true) {
+  //     infoObj.upperCaseChar = true;
+  //   } else {
+  //     infoObj.upperCaseChar = false;
+  //   };
+  //   return infoObj.upperCaseChar;
+  // };
+
+  // passwordLength();
+  // specialChar();
+  // numericChar();
+  // lowerCaseChar();
+  // upperCaseChar();
+  return infoObj;
+}
+
+// Function to randomly choose array
+
+function getRandomArr() {
+  var randomArr = Math.floor(Math.random() * 4);
+
+  // if (infoObj.specialChar === false) {
+  //   randomArr = Math.round(Math.random() * 3 + 1);
+  // }
+
+  // console.log(randomArr);
+
+  switch (randomArr) {
+    case 0:
+      if (infoObj.specialChar === true) {
+        infoObj.arr = specialCharacters;
+      };  
+      break;
+    case 1:
+      infoObj.arr = numericCharacters;
+      break;
+    case 2:
+      infoObj.arr = lowerCasedCharacters;
+      break;
+    case 3:
+      infoObj.arr = upperCasedCharacters;
+      break;
+    case null:
+      break;
+  }
+
+
+  return infoObj.arr;
+}
 
 // Function for getting a random element from an array
 function getRandom() {
   var arr = getRandomArr();
-  var randomIndex = Math.round(Math.random() * (arr.length - 1));
+  var randomIndex = Math.floor(Math.random() * (arr.length));
   return arr[randomIndex];
-};
-
-// Function to randomly choose array
-
-function getRandomArr(arr) {
-  var randomArr = Math.round(Math.random() * 3);
-  
-  if (randomArr === 0 && infoObj.specialChar === true) {
-    arr = specialCharacters;
-  } else if (randomArr === 1 && infoObj.numericChar === true) {
-    arr = numericCharacters;
-  } else if (randomArr === 2 && infoObj.lowerCaseChar === true) {
-    arr = lowerCasedCharacters;
-  } else if (randomArr === 3 && infoObj.upperCaseChar === true) {
-    arr = upperCasedCharacters;
-  } else {
-    randomArr = 0
-  };
-
-  return arr;
 }
 
 // Function to generate password with user input
@@ -191,19 +205,13 @@ function generatePassword() {
   getPasswordOptions();
 
   var passwordLength = infoObj.passwordLength;
-  console.log(getRandom());
-  // var specialChar = infoObj.specialChar;
 
-//  console.log(infoObj.specialChar)
-  
-  
   for (i = 0; i < passwordLength; i++) {
     var char = getRandom();
     password.push(char);
-  };
-  return password.join('')
-};
-
+  }
+  return password.join("");
+}
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
@@ -217,7 +225,6 @@ function writePassword() {
   passwordText.value = password;
 
   // console.log(infoObj)
-
 }
 
 // Add event listener to generate button
