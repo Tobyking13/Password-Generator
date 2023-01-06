@@ -105,28 +105,34 @@ function getPasswordOptions() {
     if (userInput >= 10 && userInput <= 64) {
       infoObj.passwordLength = userInput;
     } else {
+      alert('Password must be between 10 and 64 characters.')
       return;
     };
     
-  var specialCharPrompt = confirm("Would you like special characters in the password? please enter confirm");
+  
+  var specialCharPrompt = confirm("Would you like special characters in the password? please enter ok");
     if (specialCharPrompt === true) {
       infoObj.specialChar = true;
     };
 
-  var numericCharPrompt = confirm('Would you like numeric characters in the password? please enter confirm');
+  var numericCharPrompt = confirm('Would you like numeric characters in the password? please enter ok');
     if (numericCharPrompt === true) {
       infoObj.numericChar = true;
     }; 
 
-  var lowerCaseCharPrompt = confirm('Would you like lowercase characters in the password? please enter confirm');
+  var lowerCaseCharPrompt = confirm('Would you like lowercase characters in the password? please enter ok');
     if (lowerCaseCharPrompt === true) {
       infoObj.lowerCaseChar = true;
     }; 
 
-  var upperCaseCharPrompt = confirm('Would you like uppercase characters in the password? please enter confirm');
+  var upperCaseCharPrompt = confirm('Would you like uppercase characters in the password? please enter ok');
     if (upperCaseCharPrompt === true) {
       infoObj.upperCaseChar = true;
     };
+    if ( specialCharPrompt === false && numericCharPrompt === false && lowerCaseCharPrompt === false && upperCaseCharPrompt === false) {
+      alert('you must select at least one type of character type for password')
+      return;
+    }
 
   return infoObj;
 };
@@ -170,7 +176,7 @@ function getRandom() {
 
 // Function to generate password with user input
 function generatePassword() {
- 
+
   getPasswordOptions();
 
   var passwordLength = infoObj.passwordLength;
@@ -194,7 +200,7 @@ function writePassword() {
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
-  if (passwordText.value.length < infoObj.passwordLength) {
+  if (password.length < infoObj.passwordLength) {
     infoObj.remander = infoObj.passwordLength - passwordText.value.length;
   };
   console.log(passwordText.value.length)
