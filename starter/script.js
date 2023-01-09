@@ -96,7 +96,6 @@ var infoObj = {
   lowerCaseChar: false,
   upperCaseChar: false,
   arr: [],
-  remander: null
 };
 
 // Function to prompt user for password options
@@ -109,7 +108,6 @@ function getPasswordOptions() {
       return;
     };
     
-  
   var specialCharPrompt = confirm("Would you like special characters in the password? please enter ok");
     if (specialCharPrompt === true) {
       infoObj.specialChar = true;
@@ -132,44 +130,32 @@ function getPasswordOptions() {
     if ( specialCharPrompt === false && numericCharPrompt === false && lowerCaseCharPrompt === false && upperCaseCharPrompt === false) {
       alert('you must select at least one type of character type for password')
       return;
-    }
-
-  return infoObj;
+    };
 };
 
-// Function to randomly choose array
+//Function to randomly choose array
 function getRandomArr() {
-  var randomArr = Math.floor(Math.random() * 4);
-
-  switch (randomArr) {
-    case 0:
-      if (infoObj.specialChar === true) {
-        infoObj.arr = specialCharacters;
-      };  
-      break;
-    case 1:
-      if (infoObj.numericChar === true) {
-        infoObj.arr = numericCharacters;
-      };
-      break;
-    case 2:
-      if (infoObj.lowerCaseChar === true) {
-        infoObj.arr = lowerCasedCharacters;
-      };
-      break;
-    case 3:
-      if (infoObj.upperCaseChar === true) {
-        infoObj.arr = upperCasedCharacters;
-      };
-      break;
+  if (infoObj.specialChar === true) {
+    infoObj.arr = infoObj.arr.concat(specialCharacters);
   };
 
-  return infoObj.arr;
+  if (infoObj.numericChar === true) {
+    infoObj.arr = infoObj.arr.concat(numericCharacters);
+  };
+
+  if (infoObj.lowerCaseChar === true) {
+    infoObj.arr = infoObj.arr.concat(lowerCasedCharacters);
+  };
+
+  if (infoObj.upperCaseChar === true) {
+    infoObj.arr = infoObj.arr.concat(upperCasedCharacters);
+  };
 };
 
 // Function for getting a random element from an array
 function getRandom() {
-  var arr = getRandomArr();
+  getRandomArr();
+  var arr = infoObj.arr;
   var randomIndex = Math.floor(Math.random() * (infoObj.arr.length));
   return arr[randomIndex];
 };
@@ -178,16 +164,12 @@ function getRandom() {
 function generatePassword() {
 
   getPasswordOptions();
-
-  var passwordLength = infoObj.passwordLength;
-
-  if (infoObj.remander > 0 || infoObj.remander === null) {
+  var passwordLength = 0;
+  passwordLength = infoObj.passwordLength;
     for (i = 0; i < passwordLength; i++) {
       var char = getRandom();
       password.push(char);
     };
-  };
-
   return password.join("");
 };
 
@@ -198,17 +180,9 @@ var passwordText = document.querySelector("#password");
 // Write password to the #password input
 function writePassword() {
   var password = generatePassword();
-  var passwordText = document.querySelector("#password");
   passwordText.value = password;
-  if (password.length < infoObj.passwordLength) {
-    infoObj.remander = infoObj.passwordLength - passwordText.value.length;
-  };
-  console.log(passwordText.value.length)
-
-  return infoObj.remander
+  
 };
-console.log(infoObj.passwordLength);
-console.log(infoObj.remander);
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
