@@ -12,7 +12,7 @@ The challenge this week was to create a random password generator.
 
 ## Installation
 
-https://tobyking13.github.io/Toby-King-Challenge-4-Console-Finances/
+https://tobyking13.github.io/Toby-King-Password-Generator/
 
 ## Usage
 
