@@ -2,7 +2,7 @@
 
 ## Description
 
-The challenge this week was to create a random password generator. The application works by asking the user to enter a number between 10 and 64 for the length of the password. If the user selects a number outside of these parameters the application will alert the user that they must select a number between 10 & 64. The application then asks the user if they would like to include special, numeric, lowercase and/or uppercase characters. Again, if the user does not select any character types the application will alert the user to select at least one character type.
+I have created a random password generator. The application works by asking the user to enter a number between 10 and 64 for the length of the password. If the user selects a number outside of these parameters the application will alert the user that they must select a number between 10 & 64. The application then asks the user if they would like to include special, numeric, lowercase and/or uppercase characters. Again, if the user does not select any character types the application will alert the user to select at least one character type.
 
 There are 4 arrays with each character type. Once the information has been gathered regarding the password options the application will choose a random index from a random array as many times as the user asks for the password to be. This creates a pseudo-random password based on the Math.random() method. 
 

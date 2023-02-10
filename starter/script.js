@@ -57,7 +57,6 @@ var lowerCasedCharacters = [
   "y",
   "z",
 ];
-
 // Array of uppercase characters to be included in password
 var upperCasedCharacters = [
   "A",
