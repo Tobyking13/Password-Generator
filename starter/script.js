@@ -99,6 +99,7 @@ var infoObj = {
 
 // Function to prompt user for password options
 function getPasswordOptions() {
+
   var userInput = prompt("Please enter a password length between 10 and 64");    
     if (userInput >= 10 && userInput <= 64) {
       infoObj.passwordLength = userInput;
@@ -161,7 +162,7 @@ function getRandom() {
 
 // Function to generate password with user input
 function generatePassword() {
-
+  password = [];
   getPasswordOptions();
   var passwordLength = 0;
   passwordLength = infoObj.passwordLength;
@@ -178,6 +179,7 @@ var passwordText = document.querySelector("#password");
 
 // Write password to the #password input
 function writePassword() {
+  passwordText.value = "";
   var password = generatePassword();
   passwordText.value = password;
   
